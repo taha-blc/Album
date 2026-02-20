@@ -1227,15 +1227,6 @@
         // =========================
         let lbIndex = 0;
 
-        function getAllMemories() {
-            const uploaded = loadUploadedPhotos().map(p => ({
-                title: p.name,
-                text: p.desc || "Yüklenen fotoğraf",
-                img: p.src
-            }));
-            return [...MEMORIES, ...uploaded];
-        }
-
         function openLightbox(idx) {
             lbIndex = idx;
             updateLightbox();
@@ -1243,12 +1234,7 @@
         }
 
         function updateLightbox() {
-            const all = getAllMemories();
-            if (all.length === 0) return;
-            if (lbIndex < 0) lbIndex = all.length - 1;
-            if (lbIndex >= all.length) lbIndex = 0;
-
-            const m = all[lbIndex];
+            const m = MEMORIES[lbIndex];
             document.getElementById("lbImg").src = m.img || "";
             document.getElementById("lbTitle").textContent = m.title;
             document.getElementById("lbText").textContent = m.text;
@@ -1265,16 +1251,12 @@
         });
 
         document.getElementById("lbPrev").addEventListener("click", () => {
-            const allCount = getAllMemories().length;
-            if (allCount === 0) return;
-            lbIndex = (lbIndex - 1 + allCount) % allCount;
+            lbIndex = (lbIndex - 1 + MEMORIES.length) % MEMORIES.length;
             updateLightbox();
         });
 
         document.getElementById("lbNext").addEventListener("click", () => {
-            const allCount = getAllMemories().length;
-            if (allCount === 0) return;
-            lbIndex = (lbIndex + 1) % allCount;
+            lbIndex = (lbIndex + 1) % MEMORIES.length;
             updateLightbox();
         });
 
@@ -1339,12 +1321,10 @@
               <div class="gallery" id="memoriesGallery">${staticCards}${uploadedCards}</div>
             `);
 
-            // Unified Click Handler for all gallery items (Static & Uploaded)
-            document.querySelectorAll(".gal-item").forEach((el, index) => {
-                el.addEventListener("click", (e) => {
-                    // Don't open lightbox if delete or edit button is clicked
-                    if (e.target.closest(".gal-action-btns")) return;
-                    openLightbox(index);
+            // Static photo lightbox
+            document.querySelectorAll(".gal-item[data-type='static']").forEach(el => {
+                el.addEventListener("click", () => {
+                    openLightbox(parseInt(el.dataset.idx));
                 });
             });
 
@@ -1354,6 +1334,24 @@
                     e.stopPropagation();
                     const idx = parseInt(btn.dataset.edit);
                     openEditPhotoModal(idx);
+                });
+            });
+
+            // Uploaded photo lightbox (full view)
+            document.querySelectorAll(".gal-item[data-type='uploaded']").forEach(el => {
+                el.addEventListener("click", (e) => {
+                    if (e.target.classList.contains("gal-delete-btn")) return;
+                    if (e.target.classList.contains("gal-edit-btn")) return;
+                    const img = el.querySelector("img");
+                    if (img) {
+                        const idx = parseInt(el.dataset.uidx);
+                        const photos = loadUploadedPhotos();
+                        const p = photos[idx];
+                        document.getElementById("lbImg").src = img.src;
+                        document.getElementById("lbTitle").textContent = p ? p.name : img.alt;
+                        document.getElementById("lbText").textContent = (p && p.desc) ? p.desc : "Yüklenen fotoğraf";
+                        document.getElementById("lightbox").classList.add("show");
+                    }
                 });
             });
 
