@@ -246,6 +246,9 @@ async function deletePhoto(dbId, storagePath) {
     }
 }
 
+
+
+
 function openEditModal(idx) {
     const photo = UPLOADED_PHOTOS[idx];
     if (!photo) return;
