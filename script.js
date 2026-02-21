@@ -212,11 +212,38 @@ async function handleFiles(files) {
 }
 
 async function deletePhoto(dbId, storagePath) {
-    if (!confirm("Bu anıyı silmek istediğine emin misin ay tenlim?")) return;
-    const { error: dbErr } = await supabaseClient.from('uploaded_photos').delete().eq('id', dbId);
-    if (!dbErr && storagePath) await supabaseClient.storage.from('fotograflar').remove([storagePath]);
-    await syncData();
-    buildMemoriesModal();
+    const result = await Swal.fire({
+        title: 'Emin misin Ay Tenlim? 🌙',
+        text: "Bu anıyı sonsuza dek buluttan siliyoruz, geri getiremeyiz...(Şaka şaka tekrar yükleyebilirsin :* )",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ff4d8d',
+        cancelButtonColor: 'rgba(255,255,255,0.1)',
+        confirmButtonText: 'Evet, Sil Gitsin',
+        cancelButtonText: 'Hayır, Kalsın',
+        background: 'linear-gradient(160deg, #0f172a, #1a0a2e)',
+        color: '#e5e7eb',
+        backdrop: `rgba(0,0,123,0.4)`
+    });
+
+    if (result.isConfirmed) {
+        const { error: dbErr } = await supabaseClient.from('uploaded_photos').delete().eq('id', dbId);
+        if (!dbErr && storagePath) {
+            await supabaseClient.storage.from('fotograflar').remove([storagePath]);
+        }
+
+        await syncData();
+        buildMemoriesModal();
+
+        Swal.fire({
+            title: 'Silindi!',
+            text: 'Sildim Kuşum',
+            icon: 'success',
+            background: 'linear-gradient(160deg, #0f172a, #1a0a2e)',
+            color: '#e5e7eb',
+            confirmButtonColor: '#ff4d8d'
+        });
+    }
 }
 
 function openEditModal(idx) {
