@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>💌 Küçük Bir Sürpriz</title>
     <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
 
     <!-- Edit Photo Modal -->
     <div class="edit-photo-modal" id="editPhotoModal">
@@ -23,9 +26,6 @@
             </div>
         </div>
     </div>
-</head>
-
-<body>
 
     <canvas id="fx"></canvas>
     <div class="confetti" id="confetti"></div>
@@ -34,17 +34,21 @@
     <div class="lightbox" id="lightbox">
         <div class="lb-inner">
             <button class="lb-close-btn" id="lbClose">✕</button>
+
             <button class="lb-nav lb-prev" id="lbPrev" aria-label="Önceki">
                 <svg viewBox="0 0 24 24">
                     <polyline points="15 18 9 12 15 6" />
                 </svg>
             </button>
+
             <button class="lb-nav lb-next" id="lbNext" aria-label="Sonraki">
                 <svg viewBox="0 0 24 24">
                     <polyline points="9 6 15 12 9 18" />
                 </svg>
             </button>
+
             <img id="lbImg" src="" alt="">
+
             <div class="lb-caption">
                 <b id="lbTitle"></b>
                 <span id="lbText"></span>
@@ -54,11 +58,16 @@
 
     <div class="wrap">
         <div class="card">
+
             <div class="top">
                 <div class="badge">
                     <span class="dot"></span>
-                    <span>Bu sayfa sadece <b>Lamram 🐐 </b> için Seni Çok Ama Çok Seviyorum Her Zerrem 💖</span>
+                    <span>
+                        Bu sayfa sadece <b>Lamram 🐐</b> için
+                        Seni Çok Ama Çok Seviyorum Her Zerrem 💖
+                    </span>
                 </div>
+
                 <div class="badge">
                     <span>🕒 <span id="clock">--:--</span></span>
                     <span>•</span>
@@ -67,6 +76,7 @@
             </div>
 
             <div class="content">
+
                 <div class="hero">
                     <h1>
                         <span class="typing" id="typing"></span>
@@ -74,20 +84,20 @@
 
                     <p class="sub">
                         Bugün küçük bir şey hazırladım. Çok büyük bir şey değil ama <b>kalbimden</b>.
-                        Bu web sitesi hem bizi anlatsın hem de hatıra olarak kalsın istyiorum bebeğim fotiklerimiz adam
-                        asmaca oyunumuz ve sana olan mektubu içeriyor (Şimdilik)
+                        Bu web sitesi hem bizi anlatsın hem de hatıra olarak kalsın istiyorum bebeğim.
+                        Fotiklerimiz, adam asmaca oyunumuz, sana olan mektubum ve artık küçük günlüğümüz de burada olacak.
                     </p>
 
                     <div class="ctaRow">
                         <button class="primary" id="btnLetter">💌 Mektubu Aç</button>
                         <button id="btnMemories">📸 Minik Anılar</button>
                         <button id="btnGame">🎮 Adam Asmaca</button>
+                        <button id="btnDiary">📖 Günlük</button>
                     </div>
-                    <!-- 
-                    <p class="finalLine">Buraya sonra mp3 çalar ekleyeceğim bebeğim</p> -->
                 </div>
 
                 <div class="panel">
+
                     <div class="tile">
                         <h3>🌙 Bugünün Modu</h3>
                         <p id="moodText">Yükleniyor...</p>
@@ -96,35 +106,42 @@
                     <div class="tile">
                         <h3>Takoşu Öpcekk mişinnn namnoşşşş ???</h3>
                         <p class="muted">Hazır olunca cevapla:</p>
+
                         <div class="ctaRow">
                             <button class="primary" id="btnYes">Evet 💖</button>
                             <button id="btnNo">Hayır 🙈</button>
                         </div>
+
                         <p class="muted" id="finalMsg" style="margin-top:10px; display:none;"></p>
                     </div>
 
                     <div class="tile">
                         <h3>📜 Aşk Sözleşmesi</h3>
+
                         <p class="muted" style="font-size: 13px; margin-bottom: 8px;">
                             Bu web sitesi 🌷 tarafından tasarlanmış olup, tüm telif hakları ve kalp yetkileri
                             <b>🐐’ya</b> aittir.
                         </p>
+
                         <p class="muted" style="font-size: 13px; line-height: 1.6; margin: 0;">
                             <b>Sözleşme Yükümlülükleri:</b><br>
                             • Günlük en az 1 adet sarılma zorunludur.<br>
                             • Sabah mesajı atılacaktır.<br>
                             • Küslük süresi maksimum 15 dakikadır.<br>
-                            • Partnerini mutluluğu için her şey yapılacak.<br>
+                            • Partnerinin mutluluğu için her şey yapılacak.<br>
                             • “Seni seviyorum” denmesi günlük olarak bi zorunluluktur.<br><br>
+
                             <span style="display: block; margin-top: 4px; font-style: italic; color: var(--text);">
                                 Bu sözleşme ömür boyu geçerlidir.<br>
-                                İhlal durumunda Yapılacaklar:<br>
+                                İhlal durumunda yapılacaklar:<br>
                                 <b>Daha çok öpücük 😏🥰❤️🤍😘</b>
                             </span>
                         </p>
                     </div>
+
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -135,6 +152,7 @@
                 <b id="modalTitle">Başlık</b>
                 <button class="close" id="modalClose">Kapat ✖</button>
             </div>
+
             <div class="modalBody" id="modalBody"></div>
         </div>
     </div>
@@ -142,6 +160,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="script.js"></script>
+
 </body>
 
 </html>
