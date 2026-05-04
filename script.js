@@ -332,6 +332,7 @@ function buildDiaryModal() {
                     padding:12px;
                     outline:none;
                     font-family:Inter, sans-serif;
+                    font-size:16px;
                     margin-bottom:10px;
                 "
             ></textarea>
