@@ -248,6 +248,9 @@ button:active {
 
 .modalBox {
   width: min(700px, 100%);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
   background: linear-gradient(
     160deg,
     rgba(11, 18, 38, 0.97),
@@ -283,6 +286,7 @@ button:active {
     rgba(255, 77, 141, 0.12),
     rgba(124, 58, 237, 0.12)
   );
+  flex-shrink: 0;
 }
 
 .modalTop b {
@@ -292,8 +296,17 @@ button:active {
 .modalBody {
   padding: 20px;
   color: var(--text);
-  max-height: 80vh;
+  flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.modalBody * {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .modalBody::-webkit-scrollbar {

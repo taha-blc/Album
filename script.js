@@ -269,14 +269,16 @@ function buildDiaryModal() {
                 border:1px solid rgba(255,255,255,0.09);
                 cursor:pointer;
                 transition:0.2s ease;
+                overflow:hidden;
             ">
-                <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
-                    <b style="color:#ff4d8d;">${d.date}</b>
+                <div style="display:flex; justify-content:space-between; gap:10px; align-items:center; min-width:0;">
+                    <b style="color:#ff4d8d; flex:1; min-width:0; overflow-wrap:break-word; word-break:break-word;">${d.date}</b>
 
                     <button onclick="event.stopPropagation(); deleteDiary('${d.id}')" style="
                         padding:6px 9px;
                         border-radius:10px;
                         font-size:12px;
+                        flex-shrink:0;
                     ">
                         🗑️
                     </button>
@@ -286,6 +288,8 @@ function buildDiaryModal() {
                     margin:8px 0 6px;
                     color:var(--muted);
                     line-height:1.65;
+                    overflow-wrap:break-word;
+                    word-break:break-word;
                 ">
                     ${shortText}
                 </p>
@@ -311,13 +315,14 @@ function buildDiaryModal() {
             border:1px solid rgba(255,77,141,0.22);
             margin-bottom:16px;
         ">
-            <b style="display:block; margin-bottom:8px; color:#fff;">Bugünden bir not bırak 💭</b>
+            <b style="display:block; margin-bottom:8px; color:#fff;">Bugünden Bize Bi Not Bırak Tako Saklasın Karım 💭</b>
 
             <textarea 
                 id="diaryInput"
-                placeholder="Bugün Lamra için ne hissettin... 💖"
+                placeholder="Bugün Neler Hissettin Lamra'm💖"
                 style="
                     width:100%;
+                    box-sizing:border-box;
                     min-height:90px;
                     resize:vertical;
                     border-radius:14px;
@@ -360,15 +365,7 @@ function openDiaryDetail(id) {
                 ${entry.date}
             </b>
 
-            <p style="
-                line-height:1.85;
-                color:#fff;
-                font-size:15px;
-                white-space:pre-line;
-                margin:0;
-            ">
-                ${entry.text}
-            </p>
+            <p style="line-height:1.85; color:#fff; font-size:15px; white-space:pre-wrap; word-break:break-word; overflow-wrap:break-word; margin:0;">${entry.text.trim()}</p>
 
             <button onclick="buildDiaryModal()" style="margin-top:18px;">
                 ← Günlüğe Dön
