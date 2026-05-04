@@ -427,12 +427,12 @@ async function addDiary() {
 
 async function deleteDiary(id) {
     const result = await Swal.fire({
-        title: "Silinsin mi?",
-        text: "Bu günlük notunu kaldırıyoruz.",
+        title: "Siliyorum Keçi?",
+        text: "Notunuz Bilici Holding (Kocan) Tarafından Silinecektir Emin Misiniz ?",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonText: "Evet, sil",
-        cancelButtonText: "Kalsın",
+        confirmButtonText: "Evet Sil Kocam",
+        cancelButtonText: "Hayır Silme Kocam",
         background: "linear-gradient(160deg, #0f172a, #1a0a2e)",
         color: "#e5e7eb",
         confirmButtonColor: "#ff4d8d",
