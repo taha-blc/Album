@@ -1,0 +1,26 @@
+
+name: Supabase Database Check
+
+on:
+  schedule:
+    - cron: "17 6,12,18 * * *"
+  workflow_dispatch:
+
+jobs:
+  check-database:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Supabase database
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          curl --fail-with-body --show-error --silent \
+            --retry 2 \
+            --max-time 30 \
+            --get \
+            --data-urlencode "select=id" \
+            --data-urlencode "limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            "$SUPABASE_URL/rest/v1/diary_entries"
+          echo "Database check completed"
